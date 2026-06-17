@@ -15,21 +15,28 @@ class AssignmentController extends Controller
     $user = Auth::user();
     $courseIds = Course::where('teacher_id', $user->id)->pluck('id');
 
-    // 1. Ambil data tugas
+    // 1. Ambil semua tugas guru tersebut
     $assignments = Assignment::whereIn('course_id', $courseIds)
         ->with('course')
         ->withCount('submissions')
         ->latest()
         ->get();
 
-    // 2. Hitung statistik untuk dashboard
+    // 2. Hitung statistik
     $totalTugas = $assignments->count();
+    
+    // Hitung berdasarkan status 'Menunggu' (sesuai default di migrasi kamu)
     $menungguDinilai = Submission::whereIn('assignment_id', $assignments->pluck('id'))
-        ->where('status', 'pending')
+        ->where('status', 'Menunggu') 
         ->count();
 
-    // 3. Kirim semua variabel ke view
-    return view('teacher.tasks.index', compact('assignments', 'totalTugas', 'menungguDinilai'));
+    // Hitung yang sudah dinilai (misal statusnya 'Dinilai' atau 'Selesai')
+    // Ganti 'Dinilai' dengan string yang kamu pakai di aplikasi untuk tugas yang sudah selesai
+    $selesaiDinilai = Submission::whereIn('assignment_id', $assignments->pluck('id'))
+        ->where('status', 'Dinilai') 
+        ->count();
+
+    return view('teacher.tasks.index', compact('assignments', 'totalTugas', 'menungguDinilai', 'selesaiDinilai'));
 }
 
     public function create()
