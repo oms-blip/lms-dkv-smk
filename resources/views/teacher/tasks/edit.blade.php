@@ -53,9 +53,10 @@
                         </div>
                         @endif
 
-                        <div class="pt-2">
-                            <label class="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2">Lampiran Baru (PDF)</label>
-                            <input type="file" name="file_path" accept="application/pdf" class="block w-full text-sm text-slate-500 file:mr-4 file:py-3 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-600 border border-slate-200 rounded-xl bg-slate-50 cursor-pointer shadow-sm">
+                       <div class="pt-2">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Link Lampiran (Google Drive)</label>
+                            <input type="text" name="file_path" placeholder="Paste link Google Drive di sini..." class="block w-full py-3 px-4 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-500 transition-all">
+                            <p class="text-[11px] text-slate-400 mt-2">Masukkan link file PDF dari Google Drive.</p>
                         </div>
 
                         <div class="pt-2">
