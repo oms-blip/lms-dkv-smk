@@ -11,18 +11,26 @@ use App\Models\Submission;
 class AssignmentController extends Controller
 {
     public function index()
-    {
-        $user = Auth::user();
-        $courseIds = Course::where('teacher_id', $user->id)->pluck('id');
+{
+    $user = Auth::user();
+    $courseIds = Course::where('teacher_id', $user->id)->pluck('id');
 
-        $assignments = Assignment::whereIn('course_id', $courseIds)
-            ->with('course')
-            ->withCount('submissions')
-            ->latest()
-            ->get();
+    // 1. Ambil data tugas
+    $assignments = Assignment::whereIn('course_id', $courseIds)
+        ->with('course')
+        ->withCount('submissions')
+        ->latest()
+        ->get();
 
-        return view('teacher.tasks.index', compact('assignments'));
-    }
+    // 2. Hitung statistik untuk dashboard
+    $totalTugas = $assignments->count();
+    $menungguDinilai = Submission::whereIn('assignment_id', $assignments->pluck('id'))
+        ->where('status', 'pending')
+        ->count();
+
+    // 3. Kirim semua variabel ke view
+    return view('teacher.tasks.index', compact('assignments', 'totalTugas', 'menungguDinilai'));
+}
 
     public function create()
     {
