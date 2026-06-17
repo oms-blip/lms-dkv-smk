@@ -6,6 +6,15 @@
             </a>
             <div>
                 <h2 class="text-xl font-bold text-slate-800">Buat Tugas Baru</h2>
+                @if ($errors->any())
+                <div style="color: red; background: #ffe6e6; padding: 10px; border-radius: 5px;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
                 <p class="text-sm text-slate-500 mt-0.5">Berikan tugas atau evaluasi baru untuk siswa di kelas.</p>
             </div>
         </div>
