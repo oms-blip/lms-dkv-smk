@@ -60,11 +60,11 @@ public function store(Request $request)
     {
         // 1. Validasi Inputan (Perhatikan course_name menggantikan course_id)
         $request->validate([
-            'course_name' => 'required|string|max:255',
+           'course_id'   => 'required|exists:courses,id',
             'title'       => 'required|string|max:255',
             'description' => 'required',
             'deadline'    => 'required|date',
-            'file_path'   => 'nullable|file|mimes:pdf|max:5120',
+           'file_path'   => 'nullable|string',
             'link_url'    => 'nullable|url',
         ]);
 
@@ -84,7 +84,7 @@ public function store(Request $request)
 
         // 4. Proses Upload File PDF (Jika ada)
         if ($request->hasFile('file_path')) {
-            $assignment->file_path = $request->file('file_path')->store('assignments', 'public');
+            $assignment->file_path   = $request->file_path;;
         }
 
         // 5. Simpan ke database
@@ -158,11 +158,8 @@ public function store(Request $request)
         $assignment->link_url = $request->link_url;
 
         // 4. Proses Upload File Baru (Jika ada)
-        if ($request->hasFile('file_path')) {
-            if ($assignment->file_path) {
-                \Illuminate\Support\Facades\Storage::delete($assignment->file_path);
-            }
-            $assignment->file_path = $request->file('file_path')->store('assignments', 'public');
+       if ($request->filled('file_path')) {
+            $assignment->file_path = $request->file_path;;
         }
 
         // 5. Simpan ke Database
