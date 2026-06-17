@@ -59,17 +59,26 @@
                                         <div class="w-10 h-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center shadow-inner">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 6H7a2 2 0 00-2 2v11a2 2 0 002 2z"></path></svg>
                                         </div>
-                                        <h3 class="text-lg font-bold text-slate-800">Modul Panduan (PDF)</h3>
+                                        <h3 class="text-lg font-bold text-slate-800">Modul Tambahan</h3>
                                     </div>
                                     
-                                    <div class="w-full h-[600px] bg-slate-200 rounded-xl overflow-hidden border border-slate-200 shadow-inner relative">
-                                        <iframe src="{{ Storage::url($course->materi_pdf) }}" class="absolute top-0 left-0 w-full h-full border-0"></iframe>
+                                    <div class="w-full p-6 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                                        <div>
+                                            <p class="font-bold text-slate-700">Materi Referensi Eksternal</p>
+                                            <p class="text-sm text-slate-500">Klik tombol di samping untuk membuka atau mengunduh materi dari Google Drive.</p>
+                                        </div>
+                                        
+                                        <a href="{{ Str::startsWith($course->materi_pdf, 'http') ? $course->materi_pdf : '#' }}" 
+                                           target="_blank" 
+                                           class="shrink-0 px-6 py-3 bg-white border border-slate-300 text-slate-700 font-bold rounded-xl shadow-sm hover:bg-slate-100 transition-all flex items-center gap-2">
+                                            <svg class="w-5 h-5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                            Buka Materi
+                                        </a>
                                     </div>
-                                    <a href="{{ Storage::url($course->materi_pdf) }}" target="_blank" class="inline-block mt-4 text-sm font-bold text-indigo-600 hover:underline">Buka PDF di Tab Baru &rarr;</a>
                                 </div>
                             @endif
                             
-                           <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end">
+                            <div class="mt-10 pt-6 border-t border-slate-100 flex justify-end">
                                 <a href="{{ route('student.katalog') }}" class="px-6 py-3 bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-200 hover:bg-emerald-600 transition-all flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     Selesai
@@ -79,12 +88,6 @@
                     </div>
 
                 </div>
-
-                {{-- 
-    <div class="w-full lg:w-1/3"> 
-        ... isi sidebar yang mau dihilangkan ...
-    </div>
---}}
             </div>
         </div>
     </div>
